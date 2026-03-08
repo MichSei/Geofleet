@@ -1,0 +1,6 @@
+@GeoFleet.API_HostAddress = http://localhost:5137
+
+GET {{GeoFleet.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
