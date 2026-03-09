@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import { VehicleService } from '../services/vehicle';
+import { Vehicle } from '../models/vehicle';
 
 @Component({
   selector: 'app-map',
@@ -8,6 +10,8 @@ import * as L from 'leaflet';
   styleUrl: './map.css'
 })
 export class MapComponent implements AfterViewInit {
+
+  constructor(private vehicleService: VehicleService) {}
 
   ngAfterViewInit(): void {
 
@@ -20,9 +24,16 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
+    const vehicles: Vehicle[] = this.vehicleService.getVehicles();
+
+    vehicles.forEach(vehicle => {
+      L.marker([vehicle.lat, vehicle.lng])
+        .addTo(map)
+        .bindPopup(vehicle.name);
+    });
+
     setTimeout(() => {
       map.invalidateSize();
     }, 0);
-
   }
 }
