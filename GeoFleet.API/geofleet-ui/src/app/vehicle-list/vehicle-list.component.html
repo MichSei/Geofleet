@@ -2,7 +2,7 @@
 
 <ul>
   <li *ngFor="let vehicle of vehicles"
-      (click)="zoomToVehicle(vehicle)">
+      (click)="selectVehicle(vehicle)">
     🚚 {{ vehicle.name }}
   </li>
 </ul>

@@ -22,7 +22,7 @@ export class VehicleListComponent {
     this.vehicles = this.vehicleService.getVehicles();
   }
 
-  zoomToVehicle(vehicle: Vehicle) {
-  this.mapService.zoomTo(vehicle.lat, vehicle.lng);
-}
+  selectVehicle(vehicle: Vehicle) {
+  this.mapService.zoomToVehicle(vehicle.id);
+  }
 }
