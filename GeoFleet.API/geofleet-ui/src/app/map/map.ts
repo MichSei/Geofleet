@@ -24,10 +24,17 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
+    const truckIcon = L.icon({
+  iconUrl: 'icons/truck.svg',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+  });
+
     const vehicles: Vehicle[] = this.vehicleService.getVehicles();
 
     vehicles.forEach(vehicle => {
-      L.marker([vehicle.lat, vehicle.lng])
+      L.marker([vehicle.lat, vehicle.lng], { icon: truckIcon })
         .addTo(map)
         .bindPopup(vehicle.name);
     });
