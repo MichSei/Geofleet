@@ -1,0 +1,8 @@
+li {
+  padding: 6px;
+  cursor: pointer;
+}
+
+li:hover {
+  background: #eee;
+}

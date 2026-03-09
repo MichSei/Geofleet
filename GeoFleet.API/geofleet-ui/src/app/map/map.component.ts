@@ -1,17 +1,22 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
-import { VehicleService } from '../services/vehicle';
+import { VehicleService } from '../services/vehicle.service';
+import { MapService } from '../services/map.service';
 import { Vehicle } from '../models/vehicle';
+
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  templateUrl: './map.html',
-  styleUrl: './map.css'
+  templateUrl: './map.component.html',
+  styleUrl: './map.component.css'
 })
 export class MapComponent implements AfterViewInit {
 
-  constructor(private vehicleService: VehicleService) {}
+  constructor(
+    private vehicleService: VehicleService,
+    private mapService: MapService
+  ) {}
 
   ngAfterViewInit(): void {
 
@@ -19,6 +24,8 @@ export class MapComponent implements AfterViewInit {
       center: [48.179, 11.255],
       zoom: 13
     });
+
+    this.mapService.setMap(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'

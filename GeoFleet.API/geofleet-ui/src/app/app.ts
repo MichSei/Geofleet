@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MapComponent } from './map/map';
-import { VehicleListComponent } from './vehicle-list/vehicle-list';
+import { MapComponent } from './map/map.component';
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 @Component({
   selector: 'app-root',
