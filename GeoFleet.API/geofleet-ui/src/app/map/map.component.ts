@@ -74,7 +74,11 @@ export class MapComponent implements AfterViewInit {
     const newLat = pos.lat + (Math.random() - 0.5) * 0.002;
     const newLng = pos.lng + (Math.random() - 0.5) * 0.002;
     marker.setLatLng([newLat, newLng]);
-    this.mapService.followVehicle(id);
+   const selectedId = this.mapService.getSelectedVehicleId();
+
+    if (selectedId === id) {
+      this.mapService.followVehicle(id);
+    }
   });
   }, 10000);
 

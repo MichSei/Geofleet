@@ -25,9 +25,11 @@ export class VehicleListComponent {
 
   selectVehicle(vehicle: Vehicle) {
 
-  this.selectedVehicleId = vehicle.id;
+    this.selectedVehicleId = vehicle.id;
 
-  this.mapService.zoomToVehicle(vehicle.id);
+    this.vehicleService.setSelectedVehicle(vehicle);
+
+    this.mapService.zoomToVehicle(vehicle.id);
 
   }
 
