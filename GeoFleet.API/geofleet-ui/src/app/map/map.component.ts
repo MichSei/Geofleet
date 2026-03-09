@@ -28,17 +28,27 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.mapService.setMap(map);
-
+   
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    const truckIcon = L.icon({
-  iconUrl: 'icons/truck.svg',
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32]
+   const truckIcon = L.icon({
+    iconUrl: 'icons/truck.svg',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
   });
+
+  const selectedTruckIcon = L.icon({
+    iconUrl: 'icons/truck-selected.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40]
+  });
+
+  this.mapService.setIcons(truckIcon, selectedTruckIcon);
+
 
     const vehicles: Vehicle[] = this.vehicleService.getVehicles();
 
@@ -57,17 +67,16 @@ export class MapComponent implements AfterViewInit {
 
   });
 
-    setInterval(() => {
-  const vehicles = this.vehicleService.getVehicles();
-  vehicles.forEach(vehicle => {
-    const marker = this.markers.get(vehicle.id);
-    if (!marker) return;
-    // Random movement for testing purposes
-    const newLat = vehicle.lat + (Math.random() - 0.5) * 0.002;
-    const newLng = vehicle.lng + (Math.random() - 0.5) * 0.002;
+   setInterval(() => {
+
+  this.markers.forEach((marker, id) => {
+    const pos = marker.getLatLng();
+    const newLat = pos.lat + (Math.random() - 0.5) * 0.002;
+    const newLng = pos.lng + (Math.random() - 0.5) * 0.002;
     marker.setLatLng([newLat, newLng]);
+    this.mapService.followVehicle(id);
   });
-  }, 30000);
+  }, 10000);
 
     setTimeout(() => {
       map.invalidateSize();

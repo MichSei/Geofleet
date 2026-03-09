@@ -1,8 +1,9 @@
-li {
-  padding: 6px;
-  cursor: pointer;
+.selected {
+  background: #dceeff;
+  font-weight: bold;
 }
 
 li:hover {
-  background: #eee;
+  background: #f0f0f0;
+  cursor: pointer;
 }

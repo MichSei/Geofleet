@@ -2,7 +2,8 @@
 
 <ul>
   <li *ngFor="let vehicle of vehicles"
-      (click)="selectVehicle(vehicle)">
+      (click)="selectVehicle(vehicle)"
+      [class.selected]="vehicle.id === selectedVehicleId">
     🚚 {{ vehicle.name }}
   </li>
 </ul>

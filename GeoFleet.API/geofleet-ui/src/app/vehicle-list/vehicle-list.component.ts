@@ -14,6 +14,7 @@ import { Vehicle } from '../models/vehicle';
 export class VehicleListComponent {
 
   vehicles: Vehicle[];
+  selectedVehicleId: number | null = null;
 
   constructor(
     private vehicleService: VehicleService,
@@ -23,6 +24,11 @@ export class VehicleListComponent {
   }
 
   selectVehicle(vehicle: Vehicle) {
+
+  this.selectedVehicleId = vehicle.id;
+
   this.mapService.zoomToVehicle(vehicle.id);
+
   }
+
 }
