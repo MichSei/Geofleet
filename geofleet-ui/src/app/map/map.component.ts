@@ -50,20 +50,20 @@ export class MapComponent implements AfterViewInit {
   this.mapService.setIcons(truckIcon, selectedTruckIcon);
 
 
-    const vehicles: Vehicle[] = this.vehicleService.getVehicles();
+    this.vehicleService.getVehicles().subscribe(vehicles => {
 
   vehicles.forEach(vehicle => {
 
-  const marker = L.marker(
-    [vehicle.lat, vehicle.lng],
-    { icon: truckIcon }
-  )
-  .addTo(map)
-  .bindPopup(vehicle.name);
+    const marker = L.marker(
+      [vehicle.lat, vehicle.lng],
+      { icon: truckIcon }
+    )
+    .addTo(map)
+    .bindPopup(vehicle.name);
 
-  this.mapService.registerMarker(vehicle.id, marker);
+    this.mapService.registerMarker(vehicle.id, marker);
 
-  this.markers.set(vehicle.id, marker);   // ← FEHLT bei dir
+  this.markers.set(vehicle.id, marker); 
 
   });
 
@@ -84,6 +84,9 @@ export class MapComponent implements AfterViewInit {
 
     setTimeout(() => {
       map.invalidateSize();
-    }, 0);
+   }, 0);
+    }); 
+
   }
-}
+
+} 

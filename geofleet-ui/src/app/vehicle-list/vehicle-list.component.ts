@@ -12,15 +12,17 @@ import { Vehicle } from '../models/vehicle';
   styleUrl: './vehicle-list.component.css'
 })
 export class VehicleListComponent {
-
-  vehicles: Vehicle[];
+  
+  vehicles: Vehicle[] = [];
   selectedVehicleId: number | null = null;
 
   constructor(
     private vehicleService: VehicleService,
     private mapService: MapService
   ) {
-    this.vehicles = this.vehicleService.getVehicles();
+    this.vehicleService.getVehicles().subscribe(data => {
+  this.vehicles = data;
+});
   }
 
   selectVehicle(vehicle: Vehicle) {
