@@ -46,6 +46,26 @@ export class MapComponent implements AfterViewInit {
     iconAnchor: [20, 40],
     popupAnchor: [0, -40]
   });
+  const activeIcon = L.icon({
+  iconUrl: 'icons/truck-active.svg',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+  });
+
+  const idleIcon = L.icon({
+    iconUrl: 'icons/truck-idle.svg',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+
+  const offlineIcon = L.icon({
+    iconUrl: 'icons/truck-offline.svg',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
 
   this.mapService.setIcons(truckIcon, selectedTruckIcon);
 
@@ -54,12 +74,27 @@ export class MapComponent implements AfterViewInit {
 
   vehicles.forEach(vehicle => {
 
+    let icon = activeIcon;
+
+    if (vehicle.status === 'Idle') {
+      icon = idleIcon;
+    }
+
+    if (vehicle.status === 'Offline') {
+      icon = offlineIcon;
+    }
+
     const marker = L.marker(
       [vehicle.lat, vehicle.lng],
-      { icon: truckIcon }
+      { icon: icon }
     )
     .addTo(map)
-    .bindPopup(vehicle.name);
+    .bindPopup(`
+      <b>${vehicle.name}</b><br>
+      Driver: ${vehicle.driver}<br>
+      Status: ${vehicle.status}<br>
+      Speed: ${vehicle.speed} km/h
+    `);
 
     this.mapService.registerMarker(vehicle.id, marker);
 
